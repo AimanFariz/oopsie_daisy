@@ -1,6 +1,6 @@
-// App.jsx
 import { useState, useRef } from 'react'
 import excuses from './data/excuses'
+import { Typewriter } from "react-simple-typewriter"
 import './wheel.css'
 
 function App() {
@@ -114,6 +114,30 @@ function App() {
         <h1 className="text-3xl font-bold text-center mb-8 text-purple-600">
           ✨ Oopsie Daisy ✨
         </h1>
+        <span className="text-black">
+          <Typewriter
+            words={[
+              "Late for work again? ",
+              "Forgot to do your homework? ",
+              "Need a way out of a boring family dinner? ",
+              "Double-booked plans and can't decide? ",
+              "Avoiding a call from your boss? ",
+              "Skipped leg day (again)? ",
+              "Forgot your friend's birthday? ",
+              "Need to get out of a group project meeting? ",
+              "Trying to dodge an awkward date? ",
+              "Didn't read the book for book club? "
+            ]}
+
+            loop={false}
+            cursor
+            cursorStyle='🌼'
+            typeSpeed={20}
+            deleteSpeed={40}
+            delaySpeed={2000}
+          />
+          There will always be an excuse for that.
+        </span>
 
         {/* Category Selector */}
         <div className="category-selector mb-8">
