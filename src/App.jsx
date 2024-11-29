@@ -115,6 +115,7 @@ function App() {
           ✨ Oopsie Daisy ✨
         </h1>
 
+        {/* Category Selector */}
         <div className="category-selector mb-8">
           <button
             onClick={() => setSelectedType('work')}

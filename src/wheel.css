@@ -9,6 +9,25 @@
     animation: wheelAppear 0.5s forwards;
 }
 
+/* Responsive styles for mobile screens */
+@media (max-width: 768px) {
+    .wheel-container {
+        width: 300px;
+        height: 300px;
+        transform: scale(0.9);
+        /* Slightly larger for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .wheel-container {
+        width: 250px;
+        height: 250px;
+        transform: scale(1);
+        /* Adjust for very small screens */
+    }
+}
+
 @keyframes wheelAppear {
     to {
         opacity: 1;
@@ -325,9 +344,3 @@
 .wheel.spinning {
     animation: spin 8s linear infinite;
 }
-
-/* .petal.selected .petal-content {
-    background: linear-gradient(135deg, #ffd700 0%, #ffe4b5 100%);
-    border-color: #ffd700;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-} */
