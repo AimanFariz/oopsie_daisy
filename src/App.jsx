@@ -266,7 +266,7 @@ function App() {
       </div>
       <footer className='text-gray-800 py-8 text-center text-white'>
         <p className='text-gray-50'>🌼 Oopsie Daisy | “Making life a little easier, one excuse at a time.🌼</p>
-        <p className='text-gray-50'>✨ Built with good vibes, big laughs, and a sprinkle of chaos. ✨</p>
+        <p className='text-gray-50'>✨ Built with vibes, laughs, and a sprinkle of chaos. Very demure, very mindful. ✨</p>
         <p className='text-gray-50'> 💛 Remember: You’re doing amazing, sweetie! 💛</p>
       </footer>
       <p className='text-center text-slate-300'>Oopsie Daisy © 2024 — Made with code, chaos, and questionable life choices.</p>
