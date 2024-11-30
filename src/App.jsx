@@ -11,6 +11,50 @@ function App() {
   const [isSpinning, setIsSpinning] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
   const wheelRef = useRef(null)
+  const [daisies, setDaisies] = useState([]);
+
+  function showFlyingDaisy() {
+    const container = document.getElementById('flying-daisy-container');
+    if (!container) {
+      console.error("Container element not found");
+      return;
+    }
+
+    const flyingDaisy = document.createElement('div');
+
+    // Set daisy emoji and styles
+    flyingDaisy.textContent = '🌼';
+    flyingDaisy.style.position = 'absolute';
+    flyingDaisy.style.zIndex = '1000';
+    flyingDaisy.style.fontSize = `${Math.random() * 20 + 20}px`; // Random font size
+
+    // Random start position
+    const startX = Math.random() * (window.innerWidth - 50); // Ensure it stays within the viewport
+    const startY = Math.random() * (window.innerHeight - 50); // Ensure it stays within the viewport
+    flyingDaisy.style.left = `${startX}px`;
+    flyingDaisy.style.top = `${startY}px`;
+
+    // Append to container
+    container.appendChild(flyingDaisy);
+
+    // Animate the daisy
+    const animationDuration = 1000; // 1 second
+    flyingDaisy.animate(
+      [
+        { transform: 'translateY(0)', opacity: 1 },
+        { transform: 'translateY(-100px)', opacity: 0 },
+      ],
+      {
+        duration: animationDuration,
+        easing: 'ease-out',
+      }
+    );
+
+    // Remove daisy after animation
+    setTimeout(() => {
+      container.removeChild(flyingDaisy);
+    }, animationDuration);
+  }
 
   const chaosExcuses = [
     "Mercury is in retrograde and my chakras are misaligned",
@@ -33,6 +77,7 @@ function App() {
     setIsSpinning(true);
     setSelectedExcuse(null);
     setShowPopup(false);
+    showFlyingDaisy();
 
     const excuseList = selectedType === 'chaos' ? chaosExcuses : excuses[selectedType];
     const selectedIndex = Math.floor(Math.random() * excuseList.length);
@@ -81,7 +126,7 @@ function App() {
     const excuseList = selectedType === 'chaos' ? chaosExcuses : excuses[selectedType]
 
     return (
-      <div className="wheel-container mb-8">
+      <div className="wheel-container mb-8" id='flying-daisy-container'>
         <div
           className={`wheel ${!isGenerating && !showPopup ? 'spinning' : ''}`}
           ref={wheelRef}
@@ -110,11 +155,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-500 to-pink-500 p-8">
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-xl p-8">
-        <h1 className="text-3xl font-bold text-center mb-8 text-purple-600">
+      <div className="max-w-md mx-auto bg-white rounded-xl shadow-xl p-8" id='flying-daisy-container'>
+        <h1 className="text-3xl font-bold text-center mb-8 text-pink-400">
           ✨ Oopsie Daisy ✨
         </h1>
-        <span className="text-black mb-2">
+        <span className="text-black p-2">
           <Typewriter
             words={[
               "Late for work again? ",
@@ -140,36 +185,37 @@ function App() {
         </span>
 
         {/* Category Selector */}
-        <div className="category-selector mb-8">
+        <div className="category-selector mb-8 flex flex-wrap gap-4 justify-center sm:justify-start">
           <button
             onClick={() => setSelectedType('work')}
-            className={`category-btn ${selectedType === 'work' ? 'active' : ''}`}
+            className={`category-btn px-4 py-2 text-sm rounded-md ${selectedType === 'work' ? 'bg-blue-500 text-yellow-500' : 'bg-gray-200 text-gray-700'}`}
           >
             🏢 Work
           </button>
           <button
             onClick={() => setSelectedType('family')}
-            className={`category-btn ${selectedType === 'family' ? 'active' : ''}`}
+            className={`category-btn px-4 py-2 text-sm rounded-md ${selectedType === 'family' ? 'bg-blue-500 text-pink-500' : 'bg-gray-200 text-gray-700'}`}
           >
             👨‍👩‍👧‍👦 Family
           </button>
           <button
             onClick={() => setSelectedType('school')}
-            className={`category-btn ${selectedType === 'school' ? 'active' : ''}`}
+            className={`category-btn px-4 py-2 text-sm rounded-md ${selectedType === 'school' ? 'bg-blue-500 text-green-500' : 'bg-gray-200 text-gray-700'}`}
           >
             🧠 School
           </button>
           <button
             onClick={() => setSelectedType('chaos')}
-            className={`category-btn ${selectedType === 'chaos' ? 'active' : ''}`}
+            className={`category-btn px-4 py-2 text-sm rounded-md ${selectedType === 'chaos' ? 'bg-blue-500 text-blue-500' : 'bg-gray-200 text-gray-700'}`}
           >
             🌪️ Chaos
           </button>
         </div>
 
+
         {renderWheel()}
 
-        {selectedType && (
+        {selectedType && (<div>
           <button
             onClick={generateExcuse}
             disabled={isGenerating || showPopup}
@@ -177,6 +223,21 @@ function App() {
           >
             Pick an Excuse!
           </button>
+          {daisies.map(daisy => (
+            <span
+              key={daisy.id}
+              style={{
+                position: 'absolute',
+                top: `${daisy.top}vh`,
+                left: `${daisy.left}vw`,
+                fontSize: '24px',
+                transition: 'opacity 1s',
+              }}
+            >
+              🌼
+            </span>
+          ))}
+        </div>
         )}
 
         {/* Popup Modal */}
@@ -203,6 +264,13 @@ function App() {
           </div>
         )}
       </div>
+      <footer className='text-gray-800 py-8 text-center text-white'>
+        <p className='text-gray-50'>🌼 Oopsie Daisy | “Making life a little easier, one excuse at a time.🌼</p>
+        <p className='text-gray-50'>✨ Built with good vibes, big laughs, and a sprinkle of chaos. ✨</p>
+        <p className='text-gray-50'> 💛 Remember: You’re doing amazing, sweetie! 💛</p>
+      </footer>
+      <p className='text-center text-slate-300'>Oopsie Daisy © 2024 — Made with code, chaos, and questionable life choices.</p>
+      <p className='text-center text-slate-300 italic'>By: <a href='https://www.linkedin.com/in/aiman-akmal-hizam/' target='__blank'>Aiman</a> and <a href='https://www.linkedin.com/in/nicmarstalent/' target='__blank'>Nic</a></p>
     </div>
   )
 }
