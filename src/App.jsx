@@ -114,7 +114,7 @@ function App() {
         <h1 className="text-3xl font-bold text-center mb-8 text-purple-600">
           ✨ Oopsie Daisy ✨
         </h1>
-        <span className="text-black">
+        <span className="text-black mb-2">
           <Typewriter
             words={[
               "Late for work again? ",
@@ -152,6 +152,12 @@ function App() {
             className={`category-btn ${selectedType === 'family' ? 'active' : ''}`}
           >
             👨‍👩‍👧‍👦 Family
+          </button>
+          <button
+            onClick={() => setSelectedType('school')}
+            className={`category-btn ${selectedType === 'school' ? 'active' : ''}`}
+          >
+            🧠 School
           </button>
           <button
             onClick={() => setSelectedType('chaos')}
